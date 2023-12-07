@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+
+        <style>
+            body {
+                padding: 10px;
+                padding-top: 20px;
+                max-width: 100%;
+            }
+            .max {
+                width: 100%;
+            }
+            .add {
+                width: 60%;
+            }
+            .date {
+                color: blue;
+            }
+            a {
+                width: 60%;
+                margin-right: 15px;
+            }
+            .addone {
+                border: solid;
+                background-color: rgb(63, 92, 223);
+                text-decoration: none;
+                border-radius: 8px;
+                color: white;
+                padding: 5px;
+                margin-bottom: 15px;
+            }
+            .img {
+                height: 25px;
+            }
+            .b {
+                width: 150px;
+                height: 30px;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+
+    <body ng-app="myApp" ng-controller="appCtrl">
+        <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+            ng-show="showalert2"
+        >
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+        <form
+            class="row g-3"
+            name="myForm"
+            ng-submit="sendForm()"
+            novalidate
+            enctype="multipart/form-data"
+        >
+            <div class="col-sm-12 col-md-4">
+                <label for="validationCustom01" class="form-label"
+                    >First name</label
+                >
+                <input
+                    type="text"
+                    ng-minlength="3"
+                    ng-maxlength="20"
+                    ng-pattern="/^[A-Za-z- ]+$/"
+                    class="form-control"
+                    id="validationCustom01"
+                    name="firstname"
+                    ng-model="user.firstname"
+                    required
+                />
+            </div>
+
+            <div class="col-12 col-md-4">
+                <label for="validationCustom02" class="form-label"
+                    >Middle name</label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-minlength="3"
+                    ng-maxlength="20"
+                    ng-pattern="/^[A-Za-z]+$/"
+                    id="validationCustom02"
+                    name="middlename"
+                    ng-model="user.middlename"
+                    required
+                />
+            <div class="col-12 col-md-4">
+                <label for="validationCustom03" class="form-label"
+                    >Last name</label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-minlength="3"
+                    ng-maxlength="20"
+                    ng-pattern="/^[A-Za-z\s]+$/"
+                    id="validationCustom03"
+                    name="lastname"
+                    ng-model="user.lastname"
+                    required
+                />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="validationCustom04" class="form-label">SSN</label>
+                <input
+                    type="text"
+                    ng-minimum="9"
+                    ng-maxlength="9"
+                    class="form-control"
+                    id="validationCustom04"
+                    name="ssnname"
+                    ng-model="user.ssn"
+                />
+            <div class="col-12 col-md-4">
+                <label for="validationCustom05" class="form-label"
+                    >Mobile no</label
+                >
+                <input
+                    type="tel"
+                    ng-minlength="10"
+                    pattern="^[6789]\d{9}$"
+                    ng-maxlength="10"
+                    class="form-control"
+                    id="validationCustom05"
+                    name="mobile"
+                    ng-model="user.mobile"
+                    required
+                />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="validationCustom06" class="form-label">Email</label>
+                <input
+                    type="email"
+                    ng-minlength="5"
+                    ng-maxlength="25"
+                    ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                    class="form-control"
+                    id="validationCustom06"
+                    name="email"
+                    ng-model="user.email"
+                    required
+                />
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-4">
+                <label for="gen" class="mt-3 st">Gender</label><br />
+                <label class="stu">
+                    <input
+                        id="gen-1"
+                        type="radio"
+                        name="gender"
+                        ng-model="user.gender"
+                        value="male"
+                        required
+                    />
+                    Male </label
+                ><br />
+                <label class="stu">
+                    <input
+                        id="gen-2"
+                        type="radio"
+                        name="gender"
+                        ng-model="user.gender"
+                        value="female"
+                         required
+                    />
+                    Female </label
+                ><br />
+            </div>
+
+            <div class="col-12 col-md-4">
+                <label for="validationCustom07" class="form-label"
+                    >Designation</label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-minlength="3"
+                    ng-pattern="/^[A-Za-z\s]+$/"
+                    ng-maxlength="25"
+                    id="validationCustom07"
+                    name="designation"
+                    ng-model="user.designation"
+                    required
+                />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="validationCustom08" class="form-label"
+                    >Employee DOB</label
+                >
+                <input
+                    type="date"
+                    class="form-control"
+                    id="validationCustom08"
+                    name="dob"
+                    ng-model="user.dob"
+                    required
+                />
+                <span
+                    style="color: red"
+                    ng-show="myForm.$submitted && myForm.dob.$error.required"
+                >
+                    DOB is required.
+                </span>
+            </div>
+            <div class="col-12">
+                <label for="validationCustom09" class="form-label"
+                    >Address</label
+                >
+                <textarea
+                    type="text"
+                    class="form-control add"
+                    id="validationCustom09"
+                    name="address"
+                    ng-model="user.address"
+                    required
+                >
+                </textarea>
+            </div>
+            <br />
+            <input
+                type="file"
+                required
+                name="myFile"
+                id="fileInput"
+                file-model="myFile" 
+            />
+            <div class="col-12 col-md-4">
+                <label for="validationCustom10" class="form-label">State</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-pattern="/^[A-Za-z\s]+$/"
+                    ng-maxlength="20"
+                    id="validationCustom10"
+                    name="state"
+                    ng-model="user.state"
+                    required
+                />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="validationCustom041" class="form-label">Town</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="validationCustom041"
+                    name="town"
+                    ng-model="user.town"
+                    required
+                />
+
+                <span
+                    style="color: red"
+                    ng-show="myForm.$submitted && myForm.town.$error.required"
+                >
+                    Town is required.
+                </span>
+                <span style="color: red" ng-show="myForm.town.$error.maxlength">
+                    Not more than 20 Characters</span
+                >
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="validationCustom051" class="form-label">Zip</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-pattern="/^[0-9]{1,6}$/"
+                    id="validationCustom051"
+                    name="zip"
+                    ng-model="user.zip"
+                    required
+                />
+                <span
+                    style="color: red"
+                    ng-show="myForm.$submitted && myForm.zip.$error.required"
+                >
+                    Zip is required.
+                </span>
+                <span
+                    style="color: Red"
+                    ng-show="myForm.zip.$dirty && myForm.zip.$error.pattern"
+                >
+                    Maximum 6 Characters</span
+                >
+            </div>
+            <div class="wrapper w-100%">
+                <div ng-repeat="contact in contacts">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="working">Name</label><br />
+                            <input
+                                id="name"
+                                type="text"
+                                class="b"
+                                name="name"
+                                ng-minlength="3"
+                                ng-maxlength="20"
+                                ng-pattern="/^[A-Za-z\s]+$/"
+                                id="working"
+                                ng-model="contact.name"
+                            />
+
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <input
+                                type="radio"
+                                id="dailywork{{$index}}"
+                                name="apple{{$index}}"
+                                ng-value="10"
+                                ng-model="contact.apple"
+                                ng-change="updateAmount(contact)"
+                            />
+                            <label for="dailywork{{$index}}">daily</label>
+                            <input
+                                name="apple{{$index}}"
+                                type="radio"
+                                id="work{{$index}}"
+                                ng-model="contact.apple"
+                                ng-change="updateAmount(contact)"
+                                ng-value="20"
+                            />
+                            <label for="work{{$index}}">Weekly</label>
+                        </div>
+                    </div>
+
+                    <div ng-show="contact.show">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="wrking">working-hours</label><br />
+                                <input
+                                    id="wrking"
+                                    type="text"
+                                    class="b"
+                                    min="0"
+                                    name="hours"
+                                    ng-change="hor()"
+                                    ng-model="contact.hours"
+                                />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Amount</label><br />
+                                <input
+                                    type="text"
+                                    class="b"
+                                    name="ball"
+                                    ng-model="contact.ball"
+                                />
+                               
+                            </div>
+
+                          
+                            <div class="col-md-4">
+                                <label for="ing">final amount</label><br />
+                                <input
+                                    id="ing"
+                                    type="number"
+                                    name="amount"
+                                    class="b"
+                                    readonly
+                                    value="{{contact.hours * contact.ball}}"
+                                    ng-model="contact.hours*contact.ball"
+                                />
+                              
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <a
+                            href="#"
+                            class="removeField m-2"
+                            ng-click="removeContactField($index)"
+                        >
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-3">
+                <a
+                    href="#"
+                    id="addField"
+                    ng-click="addContactField()"
+                    class="addone max"
+                    >Add One Field</a
+                >
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">
+                    {{ editMode ? 'Update' : 'Add' }} User
+                </button>
+            </div>
+        </form>
+        <p>Total amount {{ calculateTotalAmount() }}</p>
+
+       
+        <script>
+            var app = angular.module("myApp", []);
+
+            app.directive("fileModel", function () {
+                return {
+                    restrict: "A",
+                    link: function (scope, element, attrs) {
+                        element.bind("change", function () {
+                            scope.$apply(function () {
+                                scope.myFile = element[0].files[0];
+                            });
+                        });
+                    },
+                };
+            });
+            app.controller(
+                "appCtrl",
+                function (
+                    $scope,
+                    $http,
+                    $timeout,
+                    $location,
+                    $window,
+                    $anchorScroll
+                ) {
+                    $scope.user = {};
+                    $scope.contacts = [];
+                    $scope.add = false;
+                    $scope.hours = 0;
+
+                    $scope.f = "";
+
+                    $scope.ta = function () {
+                        var userData =
+                            $window.sessionStorage.getItem("userData");
+
+                        if (userData) {
+                            $scope.user = angular.copy(JSON.parse(userData));
+                            $scope.editMode = true;
+                        }
+                    };
+
+                    $scope.ta();
+
+                    $scope.hor = function () {
+                        $scope.hours = parseInt($scope.hours);
+                    };
+
+                    $scope.result = function () {
+                        $scope.k = $scope.hours * $scope.daily;
+                    };
+
+                    $scope.addContactField = function () {
+                        $scope.add = true;
+                        $scope.contacts.push({
+                            name: "",
+                            hours: 0,
+                            ball: 0,
+                            bat: 0,
+                            apple: 0,
+                            amount: 0,
+                            show: false,
+                        });
+                    };
+                 
+
+                    $scope.removeContactField = function (index) {
+                        $scope.contacts.splice(index, 1);
+                    };
+                    $scope.updateAmount = function (contact) {
+                        if (contact.apple === 10 || contact.apple === 20) {
+                            contact.hours = contact.apple;
+                        } else {
+                            contact.hours = ""; 
+                        }
+                        contact.show = true;
+                    };
+
+                    $scope.calculateTotalAmount = function () {
+                        var total = 0;
+                        for (var i = 0; i < $scope.contacts.length; i++) {
+                            var contact = $scope.contacts[i];
+                            total += contact.hours * contact.ball;
+                        }
+                        return total;
+                    };
+
+                    $scope.insert = {};
+                    $scope.suc = "";
+                    $scope.err = "";
+                    $scope.showalert1 = false;
+                    $scope.showalert2 = false;
+                    $scope.sendForm = function () {
+                        
+                        var formData = new FormData();
+    
+    // Append user data
+    // formData.append("myFile", $scope.myFile);
+    formData.append("firstname", $scope.user.firstname); 
+    formData.append("myFile", $scope.myFile);
+        // formData.append("firstname", $scope.insert.firstname);
+        formData.append("middlename", $scope.user.middlename);
+        formData.append("lastname", $scope.user.lastname);
+        formData.append("ssnname", $scope.user.ssnname);
+        formData.append("middlename", $scope.user.middlename);
+        formData.append("mobile", $scope.user.mobile);
+        formData.append("email", $scope.user.email);
+        formData.append("gender", $scope.user.gender);
+        formData.append("designation",$scope.user.designation);
+        formData.append("dob", $scope.user.dob);
+        formData.append("address", $scope.user.address);
+        formData.append("state", $scope.user.state);
+        formData.append("town", $scope.user.town);
+        formData.append("zip", $scope.user.zip);
+        formData.append("contacts", JSON.stringify($scope.contacts));
+
+                        console.log("Uploaded Filename:", $scope.myFile);
+
+                        var contactNames = [];
+    for (var i = 0; i < $scope.contacts.length; i++) {
+        contactNames.push($scope.contacts[i].name);
+    }
+
+    $scope.insert.contacts = $scope.contacts;
+
+                        // var requestData = {
+                        //         formData: $scope.insert,
+                        //         contacts: $scope.contacts
+                        //     };
+                        console.log($scope.insert)
+                        console.log("First Name:", $scope.user.firstname);
+                          console.log("Email:", $scope.user.email);
+
+                        if (!$scope.user.id) {
+                            console.log($scope.user);
+                            $http({
+                                method: "POST",
+                                url: "server.php",
+                                data: formData,
+                                transformRequest: angular.identity,
+                                headers: {
+                                    "Content-Type": undefined,
+                                    "process-data": false,
+                                },
+                            }).then(
+                                function (response) {
+                                  //  alert("User added successfully");
+                                    $scope.user = {};
+                                  $window.location.href = 'form.html'; 
+                                },
+                                function (error) {
+                                    console.error(error);
+                                }
+                            );
+                        } else {
+                            $http.put("update.php", $scope.user).then(
+                                function (response) {
+                                   // alert("User updated successfully");
+                                    $scope.user = {};
+                                    $scope.editMode = false;
+                                    $window.sessionStorage.removeItem('userData');
+                                },
+                                function (error) {
+                                    console.error(error);
+                                }
+                            );
+                          $window.location.href = 'form.html';  
+                        }
+                    };
+                }
+            );
+        </script>
+    </body>
+</html>

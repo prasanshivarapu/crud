@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Edit User</title>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+</head>
+<body ng-app="myApp">
+    <h1>Edit User</h1>
+    
+    <p>User ID: {{ userId }}</p>
+
+            <form ng-show="show" class="row" name="myForm" novalidate ng-submit="myForm.$valid && sendForm()">
+                <h1 class="heading">Add an Employee</h1>
+                <div class="college-form col-md-4">
+                    <label>Firstname*: </label> <br>
+                    <input ng-minlength=3 ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="userFirstName" ng-model="insert.userFirstName" type="text" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.userFirstName.$error.required"><i class="fa fa-exclamation-circle"></i> Firstname is required.</span>
+                    <span style="color:red" ng-show="myForm.userFirstName.$error.minlength && !myForm.userFirstName.$error.pattern">Minimum 3 characters required.</span>
+                    <span style="color:red" ng-show="myForm.userFirstName.$error.pattern">Name can have only alphabets.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Middle Name*: </label> <br>
+                    <input ng-minlength=3 ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="userMiddleName" ng-model="insert.userMiddleName" type="text" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.userMiddleName.$error.required"><i class="fa fa-exclamation-circle"></i> Middlename is required.</span>
+                    <span style="color:red" ng-show="myForm.userMiddleName.$error.minlength && !myForm.userMiddleName.$error.pattern">Minimum 3 characters required.</span>
+                    <span style="color:red" ng-show="myForm.userMiddleName.$error.pattern">Name can have only alphabets.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Last Name*: </label> <br>
+                    <input ng-minlength=3 ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="userLastName" ng-model="insert.userLastName" type="text" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.userLastName.$error.required"><i class="fa fa-exclamation-circle"></i> Lastname is required.</span>
+                    <span style="color:red" ng-show="myForm.userLastName.$error.minlength && !myForm.userLastName.$error.pattern">Minimum 3 characters required.</span>
+                    <span style="color:red" ng-show="myForm.userLastName.$error.pattern">Name can have only alphabets.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>SSN*: </label> <br>
+                    <input name="userssn" ng-model="insert.userssn" class="text-input" type="text" placeholder="" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && (myForm.userssn.$error.required || myForm.userssn.$error.userssn)">
+                        <span ng-show="myForm.userssn.$error.required"><i class="fa fa-exclamation-circle"></i> ssn is required.</span>
+                    </span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Mobile No*: </label> <br>
+                    <input ng-minlength=6 ng-maxlength=10 ng-pattern="/^[6-9][0-9]*$/" class="text-input" name="cell" ng-model="insert.cell" type="text" placeholder="Cell" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.cell.$error.required"><i class="fa fa-exclamation-circle"></i> MobileNo. is required.</span>
+                    <span style="color:red" ng-show="myForm.cell.$error.pattern">Phone number can have only digits & should start with 6/7/8/9.</span>
+                    <span ng-show="!myForm.cell.$error.pattern && myForm.cell.$error.minlength" style="color:red">Minimum 6 digits required.</span>
+                    <span ng-show="!myForm.cell.$error.pattern && myForm.cell.$error.maxlength" style="color:red">Maximum 10 digits allowed.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Email*: </label> <br>
+                    <input class="text-input" ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                           name="email" ng-model="insert.email" type="email" placeholder="*Email" required><br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.email.$error.required"><i class="fa fa-exclamation-circle"></i> Email is required.</span>
+                    <span ng-show="myForm.email.$error.pattern" style="color:red">Email has to be in format of abc@gmail.com.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Gender*: </label><br>
+                    <input name="myVar" id="male" type="radio" ng-model="insert.myVar" value="male" required>
+                    <label for="male" class="radio-label">Male</label> <br>
+                    <input name="myVar" id="female" type="radio" ng-model="insert.myVar" value="female" required>
+                    <label for="female" class="radio-label">Female</label> <br>
+                    <input name="myVar" id="other" type="radio" ng-model="insert.myVar" value="other" required> 
+                    <label for="other" class="radio-label">Other</label> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && (myForm.myVar.$error.required || myForm.myVar.$error.myVar)">
+                        <span ng-show="myForm.myVar.$error.required"><i class="fa fa-exclamation-circle"></i> Select gender</span>
+                    </span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Designation*: </label> <br>
+                    <input ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="role" ng-model="insert.role" type="text" placeholder="Job role" required> <br>
+                    <!-- <span style="color:red" ng-show="myForm.$submitted && (myForm.role.$error.required || myForm.role.$error.role)"> -->
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.role.$error.required"><i class="fa fa-exclamation-circle"></i> Designation is required.</span>
+                    <span style="color:red" ng-show="myForm.role.$error.pattern">Designation can have only alphabets.</span>
+                    <!-- </span> -->
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>DOB*: </label> <br>
+                    <input class="text-input" name="dob" ng-model="insert.dob" type="date" required> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && (myForm.dob.$error.required || myForm.dob.$error.dob)">
+                        <span ng-show="myForm.dob.$error.required"><i class="fa fa-exclamation-circle"></i> DOB is required.</span>
+                    </span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Address*: </label> <br>
+                    <textarea ng-maxlength=50 class="text-input" name="area" ng-model="insert.area" rows="2" cols="25" required></textarea> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.area.$error.required"><i class="fa fa-exclamation-circle"></i> Address is required.</span>
+                    <span ng-show="formname.message.$error.maxlength" style="color:red">Maximum length of address is 50 characters.</span>
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>City*: </label> <br>
+                    <input ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="town" ng-model="insert.town" type="text" required> <br>
+                    <!-- <span style="color:red" ng-show="myForm.$submitted && (myForm.town.$error.required || myForm.town.$error.town)"> -->
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.town.$error.required"><i class="fa fa-exclamation-circle"></i> City is required.</span>
+                    <span style="color:red" ng-show="myForm.town.$error.pattern">City name can have only alphabets.</span>
+                    <!-- </span> -->
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>State:* </label> <br>
+                    <input ng-pattern="/^[a-zA-Z- ]*$/" class="text-input" name="state" ng-model="insert.state" type="text" required> <br>
+                    <!-- <span style="color:red" ng-show="myForm.$submitted && (myForm.state.$error.required || myForm.state.$error.state)"> -->
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.state.$error.required"><i class="fa fa-exclamation-circle"></i> State is required.</span>
+                    <span style="color:red" ng-show="myForm.state.$error.pattern">State name can have only alphabets.</span>
+                    <!-- </span> -->
+                </div>
+
+                <div class="college-form col-md-4">
+                    <label>Pincode: </label> <br>
+                    <input ng-minlength=6 ng-maxlength=6 ng-pattern="/^[0-9]*$/" class="text-input" name="pincode" ng-model="insert.pincode" type="text"> <br>
+                    <span style="color:red" ng-show="myForm.$submitted && myForm.pincode.$error.required"><i class="fa fa-exclamation-circle"></i> Pincode is required.</span>
+                    <span style="color:red" ng-show="myForm.pincode.$error.pattern && !myForm.pincode.$error.maxlength">Pincode can have only digits.</span>
+                    <span ng-show="!myForm.pincode.$error.pattern && myForm.pincode.$error.minlength" style="color:red">Minimum 6 digits required.</span>
+                    <span ng-show="!myForm.pincode.$error.pattern && myForm.pincode.$error.maxlength" style="color:red">Maximum 6 digits allowed.</span>
+                    <span style="color:red" ng-show="myForm.pincode.$error.pattern && myForm.pincode.$error.maxlength">Pincode can have only digits and it can be only 6digits</span>
+                </div>
+
+                <div class="col-md-4 mt-1 pt-2">
+                    <label>Upload your photo: </label> <br>
+                    <input style="background-color: white;" type="file" file-input="files"/>
+                    <!-- <span style="color:red" ng-show="myForm.$submitted && myForm.image.$error.required"><i class="fa fa-exclamation-circle"></i> Select image.</span> -->
+                </div>
+
+                <hr class="m-2 mt-3">
+
+                <!-- Dynamic inputs section starts here -->
+                <div class="wrapper mt-2">
+                    <div class="pt-2 row" ng-repeat="employee in employees">
+
+                        <div class="col-md-4">
+                            <label>Full Name: </label> <br>
+                            <input ng-model="employee.fullname  " name="fullname{{$index}}" ng-minlength=5 ng-pattern="/^[a-zA-Z- ]*$/" type="text" required> <br>
+                            <span style="color:red" ng-show="myForm.$submitted && myForm.fullname{{$index}}.$error.required">Fullname is required.</span>
+                            <span style="color:red" ng-show="myForm.fullname{{$index}}.$error.minlength && !myForm.fullname{{$index}}.$error.pattern">Minimum 5 characters required.</span>
+                            <span style="color:red" ng-show="myForm.fullname{{$index}}.$error.pattern">Name can have only alphabets.</span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Working type:&nbsp; </label> <br>
+                            <input  ng-change="updateAmount(employee)" name="working{{$index}}" ng-value="10" value="daily" id="dailywork{{$index}}" type="radio" ng-model="employee.working"> 
+                            <label for="dailywork{{$index}}" class="radio-label">Daily &nbsp;</label>
+                            <input  ng-change="updateAmount(employee)" name="working{{$index}}" ng-value="20" value="weekly" id="weeklywork{{$index}}" type="radio" ng-model="employee.working">
+                            <label for="weeklywork{{$index}}" class="radio-label"> Weekly  </label> <br>
+                            <span style="color:red" ng-show="myForm.$submitted && myForm.working{{$index}}.$error.required">
+                                Select working type
+                            </span>
+                        </div>
+                        <div class="col-md-4"></div>
+
+                        <div ng-show="employee.showus" class="row">
+                            <div class="col-md-4 mt-4">
+                                <label>Working hours: </label>&nbsp; <br>
+                                <input min="0" type="text" ng-model="employee.hours">
+                            </div>
+
+                            <div class="mt-4 col-md-4">
+                                <label>Amount: </label>&nbsp; <br>
+                                <input min="0" type="number" ng-model="employee.amount">
+                                <span style="color:red;" ng-bind="employee.dailyWage"></span>
+                            </div>
+
+                            <div class="mt-4 col-md-4">
+                                <label>Total Amount: </label>&nbsp; <br>
+                                <input ng-model="employee.hours*employee.amount" type="number" readonly>
+                            </div>
+                        </div>
+
+                        <a style="width: 70%;" href="#" class="removeField mt-1" ng-click="removeContactField($index)">Remove</a>
+                        <hr class="m-2 mt-1">
+                    </div>
+                    <a href="#" id="addField" ng-click="addWorkingDetails()"><button type="button" class="btn btn-primary mt-1">Add Working hours</button></a>
+                </div>
+                <h3 class="pt-2">Total: {{ getTotal() }}</h3>
+                <div class="button-container col-12 mt-0">
+                    <button style="width: 100px;" type="submit" class="btn btn-secondary col-12">SUBMIT</button> 
+                </div>
+        
+            </form>
+        </div>
+
+       
+    </body>
+</html>

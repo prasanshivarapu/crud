@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Edit User</title>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <style>
+            body{
+                padding: 10px;
+            }
+        </style>
+</head>
+<body  >
+
+    <h1>Edit User</h1>
+    
+    <p>User ID: {{ userId}}</p>
+<form
+    class="row g-3"
+    name="myForm"
+    ng-submit="myForm.$valid && sendForm()"
+    novalidate
+    enctype="multipart/form-data"
+>
+    <div class="col-sm-12 col-md-4">
+        <label for="validationCustom01" class="form-label"
+            >First name</label
+        >
+        <input
+            type="text"
+         
+            class="form-control"
+            id="validationCustom01"
+            name="firstname"
+            ng-model="userData.firstname"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.firstname.$error.required"
+        >
+            Firstname is required.
+        </span>
+        <span
+            ng-show="myForm.firstname.$error.pattern"
+            style="color: red"
+            >Firstname can have only alphabets.</span
+        >
+        <span
+            ng-show="myForm.firstname.$error.minlength"
+            style="color: red"
+            >At least 3 characters required.</span
+        >
+        <span
+            ng-show="myForm.firstname.$error.maxlength"
+            style="color: red"
+            >Not more than 20 characters.</span
+        >
+    </div>
+
+    <div class="col-12 col-md-4">
+        <label for="validationCustom02" class="form-label"
+            >Middle name</label
+        >
+        <input
+            type="text"
+            class="form-control"
+            ng-minlength="3"
+            ng-maxlength="20"
+            ng-pattern="/^[A-Za-z]+$/"
+            id="validationCustom02"
+            name="middlename"
+            ng-model="userData.middlename"
+            
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.middlename.$error.required"
+        >
+            Middle name is required.
+        </span>
+        <span
+            ng-show="myForm.middlename.$error.pattern"
+            style="color: red"
+            >Middlename can have only alphabets without space.
+        </span>
+        <span
+            ng-show="myForm.middlename.$error.minlength"
+            style="color: red"
+            >At least 3 characters required.</span
+        >
+        <span
+            ng-show="myForm.middlename.$error.maxlength"
+            style="color: red"
+            >Not more than 20 Characters.
+        </span>
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom03" class="form-label"
+            >Last name</label
+        >
+        <input
+            type="text"
+            class="form-control"
+            ng-minlength="3"
+            ng-maxlength="20"
+            ng-pattern="/^[A-Za-z\s]+$/"
+            id="validationCustom03"
+            name="lastname"
+            ng-model="userData.lastname"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.lastname.$error.required"
+        >
+            lastname is required.
+        </span>
+        <span
+            ng-show="myForm.lastname.$error.pattern"
+            style="color: red"
+            >Lastname can have only alphabets.
+        </span>
+        <span
+            ng-show="myForm.lastname.$error.minlength"
+            style="color: red"
+            >At least 3 characters required.</span
+        >
+        <span
+            ng-show="myForm.lastname.$error.maxlength"
+            style="color: red"
+            >Not more than 20 Characters.
+        </span>
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom04" class="form-label">SSN</label>
+        <input
+            type="text"
+            ng-minimum="9"
+            ng-maxlength="9"
+            class="form-control"
+            id="validationCustom04"
+            name="ssnname"
+            ng-model="userData.ssn"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.ssnname.$error.required"
+        >
+            SSN is required.
+        </span>
+        <span
+            style="color: red"
+            ng-show=" myForm.ssnname.$error.maxlength"
+        >
+            Not more than 9
+        </span>
+    </div>
+    <span style="color: red" ng-show="myForm.ssnname.$error.minlength">
+        Minimum 9 Characters required
+    </span>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom05" class="form-label"
+            >Mobile no</label
+        >
+        <input
+            type="tel"
+            ng-minlength="10"
+            pattern="^[6789]\d{9}$"
+            ng-maxlength="10"
+            class="form-control"
+            id="validationCustom05"
+            name="mobile"
+            ng-model="userData.mobile"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.mobile.$error.required"
+        >
+            Mobile no is required.
+        </span>
+        <span
+            style="color: Red"
+            ng-show="myForm.mobile.$dirty && myForm.mobile.$error.pattern"
+        >
+            mobile number should be valid</span
+        >
+        <span
+            style="color: red"
+            ng-show="myForm.mobile.$error.maxlength"
+            >Not more than 12 numbers</span
+        >
+        
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom06" class="form-label">Email</label>
+        <input
+            type="email"
+            ng-minlength="5"
+            ng-maxlength="25"
+            ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+            class="form-control"
+            id="validationCustom06"
+            name="email"
+            ng-model="userData.email"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && (myForm.email.$error.required || myForm.email.$error.email || myForm.email.$error.pattern) "
+        >
+            <span ng-show="myForm.email.$error.required"
+                >Email is required.</span
+            >
+            <span
+                style="color: Red"
+                ng-show="myForm.email.$dirty && myForm.email.$error.pattern"
+                >Please Enter Valid Email</span
+            >
+        </span>
+        <span ng-show="myForm.email.$error.minlength" style="color: red"
+            >At least 5 characters required.</span
+        >
+        <span
+            style="color: Red"
+            ng-show="myForm.email.$error.maxlength"
+        >
+            Not more than 20 Characters</span
+        >
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-4">
+        <label for="gen" class="mt-3 st">Gender</label><br />
+        <label class="stu">
+            <input
+                id="gen-1"
+                type="radio"
+                name="gender"
+                ng-model="userData.gender"
+                value="male"
+                required
+            />
+            Male </label
+        ><br />
+        <label class="stu">
+            <input
+                id="gen-2"
+                type="radio"
+                name="gender"
+                ng-model="userDatagender"
+                value="female"
+                required
+            />
+            Female </label
+        ><br />
+      
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && (myForm.gender.$error.required || myForm.gender.$error.gender)"
+        >
+            <span ng-show="myForm.gender.$error.required"
+                >Select gender</span
+            >
+        </span>
+        
+    </div>
+
+    <div class="col-12 col-md-4">
+        <label for="validationCustom07" class="form-label"
+            >Designation</label
+        >
+        <input
+            type="text"
+            class="form-control"
+            ng-minlength="3"
+            ng-pattern="/^[A-Za-z\s]+$/"
+            ng-maxlength="25"
+            id="validationCustom07"
+            name="designation"
+            ng-model="userData.designation"
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.designation.$error.required"
+        >
+            Designation is required.
+        </span>
+        <span
+            ng-show="myForm.designation.$error.pattern"
+            style="color: red"
+            >Designation can have only alphabets.</span
+        >
+        <span
+            ng-show="myForm.designation.$error.minlength"
+            style="color: red"
+            >At least 3 characters required.</span
+        >
+        <span
+            style="color: red"
+            ng-show="myForm.designation.$error.maxlength"
+        >
+            Not more than 20 Characters</span
+        >
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom08" class="form-label"
+            >Employee DOB</label
+        >
+        <input
+            type="date"
+            class="form-control"
+            id="validationCustom08"
+            name="dob"
+            ng-model="userData.dob"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.dob.$error.required"
+        >
+            DOB is required.
+        </span>
+    </div>
+    <div class="col-12">
+        <label for="validationCustom09" class="form-label"
+            >Address</label
+        >
+        <textarea
+            type="text"
+            class="form-control add"
+            id="validationCustom09"
+            name="address"
+            ng-model="userData.address"
+            required
+        >
+        </textarea>
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.address.$error.required"
+        >
+            Address is required.
+        </span>
+        <span
+            style="color: red"
+            ng-show="myForm.address.$error.maxlength"
+        >
+            Not more than 50 Characters</span
+        >
+    </div>
+    <br />
+    <div class="col-12 col-md-4">
+        <label for="validationCustom10" class="form-label">State</label>
+        <input
+            type="text"
+            class="form-control"
+            ng-pattern="/^[A-Za-z\s]+$/"
+            ng-maxlength="20"
+            id="validationCustom10"
+            name="state"
+            ng-model="userData.state"
+        />
+
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.state.$error.required"
+        >
+            State is required.
+        </span>
+        <span style="color: red" ng-show="myForm.state.$error.pattern">
+            State should have alphabets only</span
+        >
+        <span
+            style="color: red"
+            ng-show="myForm.state.$error.maxlength"
+        >
+            Not more than 20 Characters</span
+        >
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom041" class="form-label">Town</label>
+        <input
+            type="text"
+            class="form-control"
+            id="validationCustom041"
+            name="town"
+            ng-model="userData.town"
+            required
+        />
+
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.town.$error.required"
+        >
+            Town is required.
+        </span>
+        <span style="color: red" ng-show="myForm.town.$error.maxlength">
+            Not more than 20 Characters</span
+        >
+    </div>
+    <div class="col-12 col-md-4">
+        <label for="validationCustom051" class="form-label">Zip</label>
+        <input
+            type="number"
+            class="form-control"
+            ng-pattern="/^[0-9]{1,6}$/"
+            id="validationCustom051"
+            name="zip"
+            ng-model="userData.zip"
+            required
+        />
+        <span
+            style="color: red"
+            ng-show="myForm.$submitted && myForm.zip.$error.required"
+        >
+            Zip is required.
+        </span>
+        <span
+            style="color: Red"
+            ng-show="myForm.zip.$dirty && myForm.zip.$error.pattern"
+        >
+            Maximum 6 Characters</span
+        >
+    </div>
+    <div class="wrapper">
+        <div class="col-12 mb-3">
+            <a
+                href="#"
+                id="addField"
+                ng-click="addContactField()"
+                class="addone"
+                >Add One Field</a
+            >
+        </div>
+
+        <div ng-repeat="contact in contacts">
+            <div class="d-flex flex-row justify-content-between">
+                <div >
+                    <label for="working">Name</label>
+                    <input
+                        id="name"
+                        type="text"
+                        class="b"
+                        ng-minlength="3"
+                        ng-maxlength="20"
+                        ng-pattern="/^[A-Za-z\s]+$/"
+                        id="working"
+                        
+                        ng-model="inputalue"
+                        required
+                        
+                    />
+                    <span
+                        style="color: red"
+                        ng-show="myForm.$submitted && myForm.name123.$error.required"
+                    >
+                        Name is required.
+                    </span>
+                    <span
+                        ng-show="myForm.name123.$error.pattern"
+                        style="color: red"
+                    >
+                        Name can have only alphabets.
+                    </span>
+                    <span
+                        ng-show="myForm.name123.$error.minlength"
+                        style="color: red"
+                    >
+                        At least 3 characters required.
+                    </span>
+                    <span
+                        ng-show="myForm.name123.$error.maxlength"
+                        style="color: red"
+                    >
+                        Not more than 20 characters.
+                    </span>
+                </div>
+                
+                <div class="col-sm-4 col-md-3">
+                    <label for="wrking">working-hours</label>
+                    <input
+                        id="wrking"
+                        type="number"
+                        class="b"
+                        min="0"
+                        
+                        ng-change="hor()"
+                        ng-model="hours"
+                    />
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <input
+                        ng-click="dail()"
+                        type="radio"
+                       name="apple"
+                        ng-model="apple"
+                        value="daily"
+                        required
+                    />
+                    <label>daily</label>
+                    <input
+                        ng-click="dail2()"
+                        type="radio"
+                        name="apple"
+                        ng-model="apple"
+                        value="Weekly"
+                        required
+                    />
+                    <label>Weekly</label>
+                    <span
+                    style="color: red"
+                    ng-show="myForm.$submitted && (myForm.apple.$error.required || myForm.apple.$error.gender)"
+                >
+                    <span ng-show="myForm.apple.$error.required"
+                        >This field is required</span
+                    >
+                </span>
+        </span>
+                </div>
+                <div class="col-md-3">
+                    <label>Amount</label>
+                    <input type="text" class="b" readonly ng-model="daily" />
+                    
+                </div>
+            </div>
+
+           
+            <div class="col-md-6">
+                <label for="ing">Total amount</label>
+                <input
+                    id="ing"
+                    type="number"
+                    class="b"
+                    readonly
+                    
+                    ng-change="result()"
+                    ng-model="daily*hours"
+                />
+                <label>{{d}}</label>
+            </div>
+            <div class="col-md-6">
+                <a
+                    href="#"
+                    class="removeField m-2"
+                    ng-click="removeContactField($index)"
+                >
+                Delete
+                 </a> 
+                  
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">
+            Submit form
+        </button>
+    </div>
+</form>
+<script>
+  var app = angular.module('myApp', []);
+  
+
+  app.controller('EditController', function ($scope, $routeParams, $http) {
+  var userId = $routeParams.userId;
+
+  
+  $scope.userId = userId;
+
+  
+});
+</script> 
+</body>
+</html>

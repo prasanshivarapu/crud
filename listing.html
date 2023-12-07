@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>User Listing</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="UserController">
+    <h1>User Listing</h1>
+    <ul>
+        <li ng-repeat="user in users">
+            {{ user.firstname }} {{ user.lastname }} - {{ user.address }} ({{ user.pincode }})
+            <button ng-click="editUser(user)">Edit</button>
+        </li>
+    </ul>
+</body>
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('UserController', function($scope, $http, $window) {
+        $scope.users = [];
+        $scope.editMode = false;
+
+       
+        $http.get('form.php')
+            .then(function(response) {
+                $scope.users = response.data;
+            }, function(error) {
+                console.error(error);
+            });
+
+        
+        $scope.editUser = function(user) {
+           
+            $window.sessionStorage.setItem('userData', JSON.stringify(user));
+           
+            $window.location.href = 'index12.html';
+        };
+    });
+</script>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

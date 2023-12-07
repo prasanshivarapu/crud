@@ -1,0 +1,64 @@
+
+<form ng-submit="submitForm()">
+    <input type="text" ng-model="formData.name" placeholder="Name">
+    <input type="email" ng-model="formData.email" placeholder="Email">
+    <input type="submit" value="Submit">
+</form>
+
+
+
+
+
+
+
+
+
+
+app.controller('FormController', function($scope, $http) {
+    $scope.formData = {};
+
+    $scope.submitForm = function() {
+        $http.post('save_data.php', $scope.formData)
+            .then(function(response) {
+                // Handle success
+                console.log(response.data);
+            }, function(error) {
+                // Handle error
+                console.log(error);
+            });
+    };
+});
+
+
+
+
+<?php
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get form data from AngularJS
+$data = json_decode(file_get_contents("php://input"));
+
+$name = $data->name;
+$email = $data->email;
+
+// Insert form data into MySQL
+$sql = "INSERT INTO your_table (name, email) VALUES ('$name', '$email')";
+if ($conn->query($sql) === TRUE) {
+    echo "Data saved successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>

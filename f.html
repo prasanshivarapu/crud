@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+    <form name="myForm">
+        <div ng-repeat="item in items">
+            <input type="text" ng-model="item.name" placeholder="Name">
+            <input type="text" ng-model="item.workingHours" placeholder="Working Hours">
+            <input type="radio" ng-model="item.radioValue" ng-value="10" ng-change="updateAmount(item)"> 10
+            <input type="radio" ng-model="item.radioValue" ng-value="20" ng-change="updateAmount(item)"> 20
+            <input type="text" ng-model="item.amount" placeholder="Amount">
+            <button ng-click="removeItem($index)">Remove</button>
+        </div>
+        <button ng-click="addItem()">Add Input</button>
+        <br>
+        <pre>{{ items | json }}</pre>
+    </form>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('myCtrl', function ($scope) {
+                $scope.items = [];
+
+                $scope.addItem = function () {
+                    $scope.items.push({
+                        name: '',
+                        workingHours: '',
+                        radioValue: '',
+                        amount: ''
+                    });
+                };
+
+                $scope.removeItem = function (index) {
+                    $scope.items.splice(index, 1);
+                };
+
+                $scope.updateAmount = function (item) {
+                    if (item.radioValue === 10) {
+                        item.amount = '10';
+                    } else if (item.radioValue === 20) {
+                        item.amount = '20';
+                    } else {
+                        item.amount = ''; // Clear the amount if neither radio button is selected
+                    }
+                };
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"firstname":"Prasanna","lastname":"Prasanna Kumar","email":"158r1a03j5@gmail.com","address":"T2-350 Thilaknagar Godavarikhani","state":"Telangana","town":"Godavarikhani","zip":505214,"middlename":"asdf","ssnname":"asdf","mobile":"8688859874","gender":"male","designation":"asdf","dob":"2023-09-14T18:30:00.000Z","contacts":[]}

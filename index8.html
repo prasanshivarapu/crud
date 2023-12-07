@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>AngularJS File Upload</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="myController">
+    <form enctype="multipart/form-data" method="post" ng-submit="uploadFile()">
+        <label for="textData">Text Data:</label>
+        <input type="text"  ng-model="formData.textData1" required><br><br>
+        <input type="text"  ng-model="formData.textData2" required><br><br>
+        <input type="text" ng-model="formData.textData3" required><br><br>
+        <input type="text"  ng-model="formData.textData4" required><br><br>
+        <label for="file">File:</label>
+        <input type="file" id="file" style="display: none" required>
+        <button type="button" ng-click="selectFile()">Select File</button>
+        <span>{{ formData.fileName }}</span><br><br>
+        
+        <input type="submit" value="Upload">
+    </form>
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('myController', ['$scope', '$http', function($scope, $http) {
+            $scope.formData = {};
+
+            $scope.selectFile = function() {
+                document.getElementById('file').click();
+            };
+
+            document.getElementById('file').addEventListener('change', function() {
+                $scope.$apply(function() {
+                    var fileInput = document.getElementById('file');
+                    if (fileInput.files.length > 0) {
+                        $scope.formData.file = fileInput.files[0];
+                        $scope.formData.fileName = fileInput.files[0].name;
+                    } else {
+                        $scope.formData.file = undefined;
+                        $scope.formData.fileName = '';
+                    }
+                });
+            });
+
+            $scope.uploadFile = function() {
+                var formData = new FormData();
+                formData.append('textData', $scope.formData.textData);
+                formData.append('file', $scope.formData.file);
+
+                $http({
+                    method: 'POST',
+                    url: 'upload.php', 
+                    data: formData,
+                    headers: { 'Content-Type': undefined }, 
+                    transformRequest: angular.identity
+                }).then(function(response) {
+                    console.log(response.data);
+                   
+                }).catch(function(error) {
+                    console.error(error);
+                });
+
+                // Clear the file input (optional)
+                document.getElementById('file').value = '';
+                $scope.formData.fileName = '';
+            };
+        }]);
+    </script>
+</body>
+</html>
